@@ -11,6 +11,7 @@ var rename = require("gulp-rename");
 var imagemin = require("gulp-imagemin");
 var svgstore = require("gulp-svgstore");
 var svgmin = require("gulp-svgmin");
+var uglify = require("gulp-uglify");
 var server = require("browser-sync").create();
 
 gulp.task("style", function() {
@@ -63,6 +64,13 @@ gulp.task("symbols", function() {
     }))
     .pipe(rename("sprites.svg"))
     .pipe(gulp.dest("img/icons"));
+});
+
+gulp.task("jsminx", function () {
+  return gulp.src("js/*.js")
+        .pipe(uglify())
+        .pipe(rename("js-min.min.js"))
+        .pipe(gulp.dest("js"))
 });
 
 gulp.task("serve", ["style"], function() {
